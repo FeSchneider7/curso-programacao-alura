@@ -13,8 +13,12 @@ function exibirTextoNaTela(tag, texto) {
     campo.innerHTML = texto;    
 }
 
-exibirTextoNaTela ('h1', 'Bem vindo ao jogo do numero secreto entre 1 e 10');
-exibirTextoNaTela ('p', 'Tente adivinhar o numero secreto');
+function exibirMensagemInicial () {
+    exibirTextoNaTela ('h1', 'Bem vindo ao jogo do numero secreto entre 1 e 10');
+    exibirTextoNaTela ('p', 'Tente adivinhar o numero secreto');
+}
+
+exibirMensagemInicial();
 
 function verificarChute() {
     let chute = document.querySelector('input').value;
@@ -25,7 +29,9 @@ function verificarChute() {
         let palavraTentativa = tentativas > 1 ? 'tentativas' : 'tentativa';
         let mensagemTentativas = `Voce acertou o numero secreto com ${tentativas} ${palavraTentativa}`;
         exibirTextoNaTela('p', mensagemTentativas);
-        chute.classList.add ( 'color-green');       
+        document.getElementById('reiniciar').removeAttribute('disabled');
+
+           
     } else {
         if (chute > numeroSecreto) {
             exibirTextoNaTela('p', 'Tente um numero MENOR');
@@ -45,4 +51,12 @@ function gerarNumeroAleatorio() {
 function limparCampo() {
     chute = document.querySelector('input');
     chute.value = '';
+}
+
+function reiniciarJogo() {
+    numeroSecreto = gerarNumeroAleatorio();
+    limparCampo();
+    tentativas = 1;   
+    exibirMensagemInicial();
+    document.getElementById('reiniciar').setAttribute('disabled', true);
 }
