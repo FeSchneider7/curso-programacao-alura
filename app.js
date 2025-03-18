@@ -1,16 +1,14 @@
-
-//let titulo = document.querySelector('h1');
-//titulo.innerHTML = 'Bem vindo ao Jogo do numero secreto';
-
-//let paragrafo = document.querySelector('p');
-//paragrafo.innerHTML = 'Tente adivinhar o numero secreto';
-
+let listaDeNumerosSorteados = [];
+let numeroLimite = 10;
 let numeroSecreto = gerarNumeroAleatorio();
 let tentativas = 1;
 
+
+
 function exibirTextoNaTela(tag, texto) {
     let campo = document.querySelector(tag);
-    campo.innerHTML = texto;    
+    campo.innerHTML = texto;   
+    responsiveVoice.speak(texto, 'Brazilian Portuguese Female', {rate: 1.2});
 }
 
 function exibirMensagemInicial () {
@@ -45,7 +43,20 @@ function verificarChute() {
 
 
 function gerarNumeroAleatorio() {
-    return parseInt(Math.random() * 10 + 1);
+    let numeroEscolhido = parseInt(Math.random() * numeroLimite + 1);
+    let quantidadeDeNumerosNaLista = listaDeNumerosSorteados.length;
+    
+    if (quantidadeDeNumerosNaLista == numeroLimite) {
+        listaDeNumerosSorteados = [];
+        console.log('Zerando a lista de numeros sorteados');
+    }
+    if (listaDeNumerosSorteados.includes(numeroEscolhido)) {
+        return gerarNumeroAleatorio();
+    } else {
+        listaDeNumerosSorteados.push(numeroEscolhido);
+        console.log(listaDeNumerosSorteados);
+        return numeroEscolhido;
+    }
 }
 
 function limparCampo() {
@@ -60,3 +71,12 @@ function reiniciarJogo() {
     exibirMensagemInicial();
     document.getElementById('reiniciar').setAttribute('disabled', true);
 }
+
+
+
+
+//let titulo = document.querySelector('h1');
+//titulo.innerHTML = 'Bem vindo ao Jogo do numero secreto';
+
+//let paragrafo = document.querySelector('p');
+//paragrafo.innerHTML = 'Tente adivinhar o numero secreto';
