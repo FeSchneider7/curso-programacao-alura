@@ -16,7 +16,9 @@ function exibirMensagemInicial () {
     exibirTextoNaTela ('p', 'Tente adivinhar o numero secreto');
 }
 
-exibirMensagemInicial();
+
+exibirMensagemInicial(); 
+
 
 function verificarChute() {
     let chute = document.querySelector('input').value;
